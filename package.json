@@ -1,0 +1,38 @@
+{
+  "name": "idiomatic-react-cqrs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HeroesDesk/idiomatic-react-cqrs"
+  },
+  "scripts": {
+    "start": "node src/server/start.js",
+    "dev": "node src/server/dev.js",
+    "dev-test": "node src/server/devTest.js",
+    "build": "node src/server/package.js",
+    "test": "./node_modules/.bin/mocha --check-leaks --throw-deprecation --growl --bail --recursive --compilers js:babel/register src/test/unit src/test/ui",
+    "test-unit": "./node_modules/.bin/mocha --check-leaks --throw-deprecation --growl --recursive --compilers js:babel/register src/test/unit",
+    "test-ui": "./node_modules/.bin/mocha --check-leaks --throw-deprecation --growl --bail --recursive --compilers js:babel/register src/test/ui"
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.2",
+    "cqrs4js": "0.0.1",
+    "express": "^4.12.2",
+    "lodash": "^3.10.0",
+    "react": "^0.13.0",
+    "react-bootstrap": "^0.23.1"
+  },
+  "devDependencies": {
+    "babel": "^5.6.5",
+    "babelify": "^5.0.4",
+    "browserify": "^9.0.3",
+    "less": "^2.4.0",
+    "less-middleware": "^2.0.1",
+    "mocha": "^2.2.4",
+    "node-lessify": "0.0.10",
+    "node-notifier": "^4.1.2",
+    "should": "^5.2.0",
+    "watchify": "^2.6.0",
+    "zombie": "4.0.10",
+    "react-intl": "^1.2.0"
+  }
+}

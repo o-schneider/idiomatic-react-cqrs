@@ -1,0 +1,1 @@
+This application aims to showcase the use of cqrs4js.
