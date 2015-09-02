@@ -9,14 +9,13 @@
     "dev": "node src/server/dev.js",
     "dev-test": "node src/server/devTest.js",
     "build": "node src/server/package.js",
-    "test": "./node_modules/.bin/mocha --check-leaks --throw-deprecation --growl --bail --recursive --compilers js:babel/register src/test/unit src/test/ui",
-    "test-unit": "./node_modules/.bin/mocha --check-leaks --throw-deprecation --growl --recursive --compilers js:babel/register src/test/unit",
-    "test-ui": "./node_modules/.bin/mocha --check-leaks --throw-deprecation --growl --bail --recursive --compilers js:babel/register src/test/ui"
+    "test": "./node_modules/.bin/mocha --check-leaks --throw-deprecation --growl --bail --recursive --compilers js:babel/register src/test/js"
   },
   "dependencies": {
     "bootstrap": "^3.3.2",
-    "cqrs4js": "0.0.1",
+    "cqrs4js": "0.0.5",
     "express": "^4.12.2",
+    "immutable": "^3.7.4",
     "lodash": "^3.10.0",
     "react": "^0.13.0",
     "react-bootstrap": "^0.23.1"
