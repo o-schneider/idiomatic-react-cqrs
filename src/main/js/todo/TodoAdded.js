@@ -1,19 +1,18 @@
 'use strict';
 
 import {Event} from 'cqrs4js';
-import * as EventNames from "./EventNames";
 
 export class TodoAdded extends Event {
 
   constructor(content) {
-    super(name(), content);
+    super(TodoAdded.eventName(), content);
   }
 
   getTodo(){
     return {id : this.uuid, content: this.payload} ;
   }
 
-  static name(){
+  static eventName(){
     return "TodoAdded";
   }
 }
