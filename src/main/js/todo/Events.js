@@ -16,3 +16,18 @@ export class TodoAdded extends Event {
     return "TodoAdded";
   }
 }
+
+export class TodoAddFailed extends Event {
+
+  constructor(content) {
+    super(TodoAddFailed.eventName(), content);
+  }
+
+  getTodo(){
+    return {id : this.uuid, content: this.payload} ;
+  }
+
+  static eventName(){
+    return "TodoAddFailed";
+  }
+}

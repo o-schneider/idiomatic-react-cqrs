@@ -2,9 +2,8 @@
 
 import {EventBus} from 'cqrs4js';
 import {createTodosView} from "../../../main/js/todo/TodosView";
-import {TodoAdded} from "../../../main/js/todo/TodoAdded";
+import {TodoAdded} from "../../../main/js/todo/Events";
 import should from 'should';
-
 
 describe('TodosView', function () {
   it("stores todos created", function (done) {
