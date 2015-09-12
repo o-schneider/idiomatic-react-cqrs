@@ -17,7 +17,7 @@ const commandBus = new CommandBus();
 const todosViewSubscriber = createTodosView(eventBus);
 createTodoModel(commandBus, eventBus, Immutable.List(["foo"]));
 
-const Provider  = createProvider(React);
+const Provider = createProvider(React);
 const App = React.createClass({
   render: function () {
     return (
@@ -33,5 +33,3 @@ React.render(
       render={() => <App/>}/>
   )
   , appNode);
-
-

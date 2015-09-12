@@ -69,11 +69,9 @@ export default function createProvider(React) {
   }
 
   return class Provider extends Component {
-    static childContextTypes() {
-      return {
+    static childContextTypes = {
         eventBus: messageBusShape.isRequired,
         commandBus: messageBusShape.isRequired
-      };
     }
 
     static propTypes() {

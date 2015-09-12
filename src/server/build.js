@@ -12,7 +12,7 @@ module.exports.init = function (srcRelPath, webAppRelPath, errorCb, endCb) {
   console.log("Building web app from " + srcPath + " to " + webAppPath);
   var b = browserify({cache: {}, packageCache: {}, debug: true})
     .transform(lessify)
-    .transform(babelify.configure({ignore: /less/}))
+    .transform(babelify.configure({ignore: /less/, stage : 0}))
     .add(srcPath + "/main.js");
   return {
     build: function () {
