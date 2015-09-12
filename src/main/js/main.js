@@ -21,15 +21,17 @@ const Provider = createProvider(React);
 const App = React.createClass({
   render: function () {
     return (
-      <div>Hello world</div>
+        <div>
+          Hello world at last
+        </div>
     );
   }
 });
 
 React.render(
-  (<Provider
-      commandBus={commandBus}
-      eventBus={eventBus}
-      render={() => <App/>}/>
-  )
-  , appNode);
+  <Provider commandBus={commandBus}
+            eventBus={eventBus}>
+    {() => <App />}
+  </Provider>,
+  appNode
+);
