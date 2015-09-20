@@ -1,37 +1,51 @@
 'use strict';
 
+import React,  { Component, PropTypes} from 'react';
+import Router, { Route, DefaultRoute, RouteHandler } from 'react-router';
+import Immutable from "Immutable";
+
 import {EventBus, CommandBus, createView} from 'cqrs4js';
-import React from 'react';
-import { Component, PropTypes} from 'react';
+
 import {TodoAdded} from "./todo/Events";
 import {createTodosView} from "./todo/TodosView";
 import {createTodoModel} from "./todo/TodoModel";
-import Immutable from "Immutable";
 import createProvider from "./reactcqrs4js/ContextFactory";
+import ViewRegister from "./reactcqrs4js/ViewRegister";
 
-
-const appNode = document.getElementById("app");
+import HomeUi from './ui/Home';
+import TodosUi from './ui/Todo/Todos';
+import UiNavbar from './ui/Navbar';
 
 const eventBus = new EventBus();
 const commandBus = new CommandBus();
-const todosViewSubscriber = createTodosView(eventBus);
+const viewRegister = new ViewRegister();
+viewRegister.register("todosView", createTodosView(eventBus));
 createTodoModel(commandBus, eventBus, Immutable.List(["foo"]));
 
 const Provider = createProvider(React);
+
 const App = React.createClass({
   render: function () {
     return (
-        <div>
-          Hello world at last
-        </div>
+      <div className='main container'>
+        <UiNavbar />
+        <RouteHandler />
+      </div>
     );
   }
 });
 
-React.render(
-  <Provider commandBus={commandBus}
-            eventBus={eventBus}>
-    {() => <App />}
-  </Provider>,
-  appNode
+const Routes = (
+  <Route name="home" path="/" handler={App}>
+    <DefaultRoute handler={HomeUi}/>
+    <Route name="rest" path="/rest" handler={TodosUi}/>
+  </Route>
 );
+
+Router.run(Routes, function (RouteHandler) {
+  React.render(<Provider commandBus={commandBus}
+                         eventBus={eventBus}
+                         viewRegister={viewRegister}
+    >
+    {() => <RouteHandler />}</Provider>, document.getElementById("app"));
+});

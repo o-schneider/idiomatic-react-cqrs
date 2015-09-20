@@ -2,6 +2,7 @@
 export default function createProvider(React) {
   const { Component, PropTypes, Children } = React;
   const messageBusShape = createMessageBusShape(PropTypes);
+  const viewRegisterShape = createViewRegisterShape(PropTypes);
   const requireFunctionChild = isUsingOwnerContext(React);
 
   let didWarnAboutChild = false;
@@ -25,6 +26,14 @@ export default function createProvider(React) {
     return PropTypes.shape({
       publish: PropTypes.func.isRequired,
       subscribe: PropTypes.func.isRequired,
+    });
+  }
+
+
+  function createViewRegisterShape(PropTypes) {
+    return PropTypes.shape({
+      registerView: PropTypes.func.isRequired,
+      subscribe: PropTypes.func.isRequired
     });
   }
 
@@ -70,8 +79,9 @@ export default function createProvider(React) {
 
   return class Provider extends Component {
     static childContextTypes = {
-        eventBus: messageBusShape.isRequired,
-        commandBus: messageBusShape.isRequired
+      eventBus: messageBusShape.isRequired,
+      commandBus: messageBusShape.isRequired,
+      viewRegister: viewRegisterShape.isRequired
     }
 
     static propTypes() {
@@ -80,6 +90,7 @@ export default function createProvider(React) {
       return {
         eventBus: messageBusShape.isRequired,
         commandBus: messageBusShape.isRequired,
+        viewRegister: viewRegisterShape.isRequired,
         children: (requireFunctionChild ?
             PropTypes.func :
             PropTypes.element
@@ -88,10 +99,10 @@ export default function createProvider(React) {
     }
 
     getChildContext() {
-      console.log("getChildContext");
       return {
         eventBus: this.eventBus,
-        commandBus: this.commandBus
+        commandBus: this.commandBus,
+        viewRegister: this.viewRegister
       };
     }
 
@@ -99,6 +110,7 @@ export default function createProvider(React) {
       super(props, context);
       this.eventBus = props.eventBus;
       this.commandBus = props.commandBus;
+      this.viewRegister = props.viewRegister;
     }
 
     componentWillReceiveProps(nextProps) {
