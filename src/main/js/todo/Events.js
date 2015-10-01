@@ -9,7 +9,7 @@ export class TodoAdded extends Event {
   }
 
   getTodo(){
-    return {id : this.uuid, content: this.payload} ;
+    return {id : this.uuid, label: this.payload} ;
   }
 
   static eventName(){
@@ -24,7 +24,7 @@ export class TodoAddFailed extends Event {
   }
 
   getTodo(){
-    return {id : this.uuid, content: this.payload} ;
+    return {id : this.uuid, label: this.payload} ;
   }
 
   static eventName(){

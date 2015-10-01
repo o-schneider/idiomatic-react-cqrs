@@ -35,7 +35,7 @@ export default class TodoList extends React.Component {
         {todos.map((todo) =>
             <p>
               <button className="btn btn-default btn-sm" onClick={onDelete.bind(this, todo)}>Done</button>
-              {todo.label()}</p>
+              {todo.label}</p>
         )}
       </div>
     );

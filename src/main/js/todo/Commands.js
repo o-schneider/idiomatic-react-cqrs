@@ -8,10 +8,6 @@ export class AddTodo extends Command {
     super(AddTodo.commandName(), content);
   }
 
-  getTodo(){
-    return {id : this.uuid, content: this.payload} ;
-  }
-
   static commandName(){
     return "AddTodo";
   }

@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react/addons';
-import AddTodo from '../../todo/Commands'
+import {AddTodo} from '../../todo/Commands'
 
 export default class TodoForm extends React.Component {
 
@@ -16,10 +16,11 @@ export default class TodoForm extends React.Component {
 
     render() {
 
-
         const handleAdd = () => {
-            if(this.state.value.trim() === '') { return; }
-            commandBus.publish(new AddTodo(this.state.value));
+            const state = this.state.value.trim();
+            if(state === '') { return; }
+            console.log("state : ", state );
+            this.context.commandBus.publish(new AddTodo(state));
             this.setState({value: ''});
         };
 

@@ -32,7 +32,7 @@ export default function createProvider(React) {
 
   function createViewRegisterShape(PropTypes) {
     return PropTypes.shape({
-      registerView: PropTypes.func.isRequired,
+      register: PropTypes.func.isRequired,
       subscribe: PropTypes.func.isRequired
     });
   }
@@ -82,7 +82,7 @@ export default function createProvider(React) {
       eventBus: messageBusShape.isRequired,
       commandBus: messageBusShape.isRequired,
       viewRegister: viewRegisterShape.isRequired
-    }
+    };
 
     static propTypes() {
       console.log("propTypes");

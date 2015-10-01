@@ -19,7 +19,11 @@ import UiNavbar from './ui/Navbar';
 const eventBus = new EventBus();
 const commandBus = new CommandBus();
 const viewRegister = new ViewRegister();
+
+console.log("eventBus ", eventBus, ", commandBus ", commandBus, ", viewRegister", viewRegister);
+
 viewRegister.register("todosView", createTodosView(eventBus));
+
 createTodoModel(commandBus, eventBus, Immutable.List(["foo"]));
 
 const Provider = createProvider(React);
@@ -43,8 +47,8 @@ const Routes = (
 );
 
 Router.run(Routes, function (RouteHandler) {
-  React.render(<Provider commandBus={commandBus}
-                         eventBus={eventBus}
+  React.render(<Provider eventBus={eventBus}
+                         commandBus={commandBus}
                          viewRegister={viewRegister}
     >
     {() => <RouteHandler />}</Provider>, document.getElementById("app"));
