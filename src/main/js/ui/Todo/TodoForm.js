@@ -19,7 +19,7 @@ export default class TodoForm extends React.Component {
         const handleAdd = () => {
             const state = this.state.value.trim();
             if(state === '') { return; }
-            console.log("state : ", state );
+            console.log("adding todo of text ", state );
             this.context.commandBus.publish(new AddTodo(state));
             this.setState({value: ''});
         };

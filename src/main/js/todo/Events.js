@@ -23,11 +23,29 @@ export class TodoAddFailed extends Event {
     super(TodoAddFailed.eventName(), content);
   }
 
-  getTodo(){
-    return {id : this.uuid, label: this.payload} ;
+  static eventName(){
+    return "TodoAddFailed";
+  }
+}
+
+export class TodoDeleted extends Event {
+
+  constructor(todoId) {
+    super(TodoDeleted.eventName(), todoId);
   }
 
   static eventName(){
-    return "TodoAddFailed";
+    return "TodoDeleted";
+  }
+}
+
+export class TodoDeletionFailed extends Event {
+
+  constructor(reason) {
+    super(TodoDeletionFailed.eventName(), reason);
+  }
+
+  static eventName(){
+    return "TodoDeletionFailed";
   }
 }

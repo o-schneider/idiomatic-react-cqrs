@@ -1,31 +1,48 @@
 'use strict';
 
 import {createModel} from 'cqrs4js';
-import {AddTodo} from './Commands';
-import {TodoAdded, TodoAddFailed} from './Events';
+import {AddTodo,DeleteTodo} from './Commands';
+import {TodoAdded, TodoAddFailed, TodoDeleted, TodoDeletionFailed} from './Events';
+import Immutable from 'Immutable';
 
-export const createTodoModel = (commandBus, eventBus, bannedWords) => {
-  createModel(commandBus, eventBus, bannedWords,
-    {
-      'name': AddTodo.commandName(),
-      'action': (command, bannedWords) => {
-        const words = command.payload.split(' ');
-        let valid = true;
-        words.forEach(word => {
-          if (bannedWords.includes(word)) {
-            valid = false;
+export const createTodoModel = (commandBus, eventBus) => {
+    createModel(commandBus, eventBus, {'bannedWords': Immutable.List.of("foo"), 'todoIds': Immutable.List.of()},
+      {
+        'name': AddTodo.commandName(),
+        'action': (command, state) => {
+          console.log("AddTodo received " + state.bannedWords);
+
+          const words = command.payload.split(' ');
+          for (var i = 0; i < words.length; i++) {
+            const word = words[i];
+            if (state.bannedWords.includes(word)) {
+              console.log("AddTodo received containing some banned word");
+              eventBus.publish(new TodoAddFailed("Banned words contained"));
+              return state;
+
+            }
           }
-
-        });
-        if (!valid) {
-          eventBus.publish(new TodoAddFailed("Banned words contained"));
-        } else {
-          eventBus.publish(new TodoAdded(command.payload));
+          const todoAdded = new TodoAdded(command.payload);
+          eventBus.publish(todoAdded);
+          return {'bannedWords': state.bannedWords, 'todoIds': state.todoIds.push(todoAdded.getTodo().id)};
         }
+      },
+      {
+        'name': DeleteTodo.commandName(),
+        'action': (command, state) => {
+          console.log("DeleteTododTodo received");
 
-        return bannedWords;
+          const index = state.todoIds.indexOf(command.payload.id);
+          if (index == -1) {
+            eventBus.publish(new TodoDeletionFailed("Unknown todo"));
+            return state;
+          }
+          eventBus.publish(new TodoDeleted(command.payload));
+          return {'bannedWords': state.bannedWords, 'todoIds': state.todoIds.splice(index, 1)};
+        }
       }
-    }
-  );
-  return ;
-};
+    )
+    ;
+
+  }
+  ;

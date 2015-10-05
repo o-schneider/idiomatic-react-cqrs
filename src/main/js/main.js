@@ -2,7 +2,6 @@
 
 import React,  { Component, PropTypes} from 'react';
 import Router, { Route, DefaultRoute, RouteHandler } from 'react-router';
-import Immutable from "Immutable";
 
 import {EventBus, CommandBus, createView} from 'cqrs4js';
 
@@ -20,11 +19,9 @@ const eventBus = new EventBus();
 const commandBus = new CommandBus();
 const viewRegister = new ViewRegister();
 
-console.log("eventBus ", eventBus, ", commandBus ", commandBus, ", viewRegister", viewRegister);
+viewRegister.register('todosView', createTodosView(eventBus));
 
-viewRegister.register("todosView", createTodosView(eventBus));
-
-createTodoModel(commandBus, eventBus, Immutable.List(["foo"]));
+createTodoModel(commandBus, eventBus);
 
 const Provider = createProvider(React);
 

@@ -8,10 +8,11 @@ export default class ViewRegister {
   constructor() {
   }
 
-  register(name, viewSubscriber) {
-    check.notNull({'name': name, 'viewSubscriber': viewSubscriber});
+  register(name, view) {
+    check.notNull({'name': name, 'view': view});
+    console.log("Registered view " +  name );
     this.initIfNeeded();
-    this.map = this.map.set(name, viewSubscriber);
+    this.map = this.map.set(name, view);
   }
 
   subscribe(name, onViewChangedCallback) {
@@ -20,6 +21,7 @@ export default class ViewRegister {
     if (this.map.has(name) == false) {
       throw new Error("View '" + name + "' not existing.");
     }
+    console.log("Subscription to " + name);
     return this.map.get(name)(onViewChangedCallback);
   }
 

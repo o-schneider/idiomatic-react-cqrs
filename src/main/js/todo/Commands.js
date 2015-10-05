@@ -4,13 +4,23 @@ import {Command} from 'cqrs4js';
 
 export class AddTodo extends Command {
 
-  constructor(content) {
-    super(AddTodo.commandName(), content);
+  constructor(text) {
+    super(AddTodo.commandName(), text);
   }
 
-  static commandName(){
+  static commandName() {
     return "AddTodo";
   }
 }
 
+export class DeleteTodo extends Command {
+
+  constructor(todo) {
+    super(DeleteTodo.commandName(), todo);
+  }
+
+  static commandName() {
+    return "DeleteTodo";
+  }
+}
 

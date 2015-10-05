@@ -1,12 +1,13 @@
 'use strict';
 
 import React from 'react/addons';
-import DeleteTodo from '../../todo/Commands'
+import {DeleteTodo} from '../../todo/Commands';
 
 export default class TodoList extends React.Component {
 
   static contextTypes = {
-    viewRegister: React.PropTypes.object.isRequired
+    viewRegister: React.PropTypes.object.isRequired,
+    commandBus: React.PropTypes.object.isRequired
   };
 
   componentWillMount() {
@@ -24,7 +25,7 @@ export default class TodoList extends React.Component {
   render() {
 
     const onDelete = (todo) => {
-      console.log("delete");
+      this.context.commandBus.publish(new DeleteTodo(todo));
     };
 
     const todos = this.state.todos;
