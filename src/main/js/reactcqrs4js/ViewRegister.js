@@ -1,6 +1,6 @@
 'use strict';
 
-import Immutable from "Immutable";
+import Immutable from "immutable";
 import {check} from 'cqrs4js';
 
 export default class ViewRegister {

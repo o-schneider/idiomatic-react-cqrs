@@ -3,7 +3,7 @@
 import {createModel} from 'cqrs4js';
 import {AddTodo,DeleteTodo} from './Commands';
 import {TodoAdded, TodoAddFailed, TodoDeleted, TodoDeletionFailed} from './Events';
-import Immutable from 'Immutable';
+import Immutable from 'immutable';
 
 export const createTodoModel = (commandBus, eventBus) => {
     createModel(commandBus, eventBus, {'bannedWords': Immutable.List.of("foo"), 'todoIds': Immutable.List.of()},
